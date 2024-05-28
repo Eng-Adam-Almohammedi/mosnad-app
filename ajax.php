@@ -4,7 +4,6 @@ include './connection.php';
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    echo 'sssssssssssss';
     if (!$email && !$password) {
         header('Location:login.php?empty');
     } else {
@@ -52,14 +51,13 @@ elseif (isset($_POST['forget_password'])) {
         $password = md5($password);
         $query = "SELECT * FROM users WHERE email='$email'";
         $result = PDO_FetchRow($query);
-       
         if (($result) != false) {
             $user = $result;
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];
-            header('Location:index.php?home');
+            header('Location:reset_password.php');
         } else {
-            header('Location:login.php?loginErr');
+            header('Location:forget_password.php');
         }
     }
 }
